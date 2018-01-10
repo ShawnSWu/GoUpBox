@@ -2,4 +2,4 @@
  GoUpBox-web
  http://db.vexp.idv.tw//~x071/EndOfPeriod/BootslogInView.php
  
- ![GoUpBox](https://imgur.com/a/e3mBD)
+ ![GoUpBox](https://imgur.com/a/4FRcRm.jpg)
