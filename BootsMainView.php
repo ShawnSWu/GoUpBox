@@ -1,93 +1,94 @@
-<!doctype html>
-<html lang="zh_tw">
-<head>
-<script type="text/javascript" src="catalog/view/javascript/jquery/jquery-1.6.1.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-<title>GoUpBox雲端硬碟</title>
-</head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body bgcolor="#DDDDDD">
-<style>
-.profileBlock{
-	background-color:#D3D3D3;
-	width:210px;height:100%;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GoUpBox</title>
+	<link rel="icon" href="box.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
 
-.uploadbuttton {
-    display: inline-block;
-    background: #D0EEFF;
-    border: 1px solid #99D3F5;
-    border-radius: 4px;
-    padding: 4px 12px;
-    overflow: hidden;
-    color: #1E88C7;
-    text-decoration: none;
-    text-indent: 0;
-    line-height: 20px;
-	background-image:url(icon_upload.png);
-	background-size:19px;
-	background-repeat:no-repeat;
-	background-position:3px;
-	padding-left:32px;
-	 position: absolute;
-	  top: 10%;
-	  left: 25%;
-}
+      @media (max-width: 980px) {
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+	  
+	.uploadbuttton {
+		display: inline-block;
+		background: #D0EEFF;
+		border: 1px solid #99D3F5;
+		border-radius: 4px;
+		padding: 4px 12px;
+		overflow: hidden;
+		color: #1E88C7;
+		text-decoration: none;
+		text-indent: 0;
+		line-height: 20px;
+		background-image:url(icon_upload.png);
+		background-size:19px;
+		background-repeat:no-repeat;
+		background-position:4px;
+		padding-left:32px;
+	}
 
+	.loading{
+		z-index: 1;
+		padding: 10px 10px 5px;
+		background:#008866;
+		left: 0;
+		top: 0;
+		color: #fff;
+		position: fixed;
+		width: 150px;
+		height: 30px;
+		text-align: center;
+		box-shadow: 2px 2px 10px;
+		border-radius: 5px;
+		font-size:10px;
+		
+		position: absolute;
+		top: 5%;
+		left: 50%;
+	}
 
-.table {
-    width: 60%;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    background-color: transparent;
-	
-	background-color:#FFFFFF;
-	padding:10px;
-	margin-bottom:5px;
-	border:2px #ccc solid;
-	border-radius:5px;
+	.accountIcon{
+		background-image:url(icon_account.png);
+		background-size:14px;
+		background-repeat:no-repeat;
+		background-position:3px;
+	}
 
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -230px 0 0 -400px;
-}
-
-.table th, .table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #c2cfd6;
-}
-
-
-.loading{
-    z-index: 1;
-    padding: 10px 10px 5px;
-    background:#008866;
-    left: 0;
-    top: 0;
-    color: #fff;
-    position: fixed;
-    width: 150px;
-    height: 30px;
-    text-align: center;
-    box-shadow: 2px 2px 10px;
-    border-radius: 5px;
-	font-size:9px;
-	
-	position: absolute;
-	top: 0%;
-	left: 50%;
-}
-
-</style>
-
-
-
-
+	.emailIcon{
+		background-image:url(icon_email.png);
+		background-size:14px;
+		background-repeat:no-repeat;
+		background-position:3px;
+	}
+	.phoneIcon{
+		background-image:url(icon_phone.png);
+		background-size:14px;
+		background-repeat:no-repeat;
+		background-position:3px;
+	}
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+<body>
 <?php
 	require('psql.php');
 	include 'Member.php';
@@ -95,7 +96,7 @@
 
 	if($_SESSION['login'] == 0){
 		echo '<script>alert("請先登入")</script>';
-		echo '<meta http-equiv="refresh" content="0;url=logInView.php">';
+		echo '<meta http-equiv="refresh" content="0;url=BootslogInView.php">';
 		die();
 	}
 			
@@ -125,89 +126,101 @@
 		
 	}
 
-	
-	onCreate($Member);
-	
-	
-	if($_REQUEST['uploadbtn']){
-		handleUpload($GLOBALS['memberAccountFilePath']);
-	}
-	
-	
-function handleUpload($memberAccountFilePath){
-					
-	$savePathName = $memberAccountFilePath.$_FILES['uploadfile']['name'];
 
-	copy($_FILES['uploadfile']['tmp_name'],$savePathName) or die("失敗");
-
-	echo "<script>alert('成功');";
-	echo "location.href = 'mainView.php';";
-	echo '</script>';
-}	
-	
-function onCreate($Member){
-	
 	echo '<div id="loading" class="loading" style="display: none">上傳中...</div>';
-	
-	$fileList = showFileList($Member);
-	$filesizeList = getFileSizeList($Member);
-	
-	//使用者存資料的資料夾
-	$memberAccount = trim($Member->getAccount());
-	$memberAccountFilePath = "/home/s/x071/WWW/UserFile/${memberAccount}/";
-	
-		echo '
-		<!-- Sidebar -->
-		<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-		  <h3 class="w3-bar-item">首頁</h3>
-		  <a href class="w3-bar-item w3-button">帳號：'.$Member->getAccount().'</a>
-		  <a href class="w3-bar-item w3-button">Email：'.$Member->getEmail().'</a>
-		  <a href class="w3-bar-item w3-button">電話：'.$Member->getPhone().'</a>
-		  <a href class="w3-bar-item w3-button">方案：'.$Member->getProgramType().'</a>
-		  <a href class="w3-bar-item w3-button">啟用時間：'.$Member->getEnableTime().'</a>
-		  <a href class="w3-bar-item w3-button">到期時間：'.computingDays($Member).'</a>
-		  <br><br><br><br><br><br>
-		  
-		  <a href="drive_auth.php?op=5" class="w3-bar-item w3-button" color: hotpink;>登出</a>
-		  <br><br>
+
+	echo '
+		<div class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="navbar-inner">
+			<div class="container-fluid">
+			  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="brand" href="#">GoUpBox</a>
+			  <div class="nav-collapse collapse">
+				<p class="navbar-text pull-right">
+				  <a href="drive_auth.php?op=5" class="w3-bar-item w3-button" color: hotpink;>登出</a>
+				</p>
+				<ul class="nav">
+				  <li class="active"><a href="#">首頁</a></li>
+				  <li><a href="#account">帳戶</a></li>
+				  <li><a href="#program">購買方案</a></li>
+				</ul>
+			  </div>
+			</div>
+		  </div>
 		</div>';
 		
-		
-		
-		uploadBtnView();
-		
-		
-		
-		
-		
-	//if(count($fileList) > 0){
 		echo '
-		<table border="2" class="table">
+			<div class="container-fluid">
+			  <div class="row-fluid">
+				<div class="span2">
+				  <div class="well sidebar-nav">
+					<ul class="nav nav-list">
+					  <li class="nav-header">帳戶</li>
+						<li><a href="#"><span class="accountIcon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$Member->getAccount().'</span></a></li>
+						<li><a href="#"><span class="emailIcon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$Member->getEmail().'</span></a></li>
+						<li><a href="#"><span class="phoneIcon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$Member->getPhone().'</span></a></li>
+					  <li class="nav-header">使用方案 - '.$Member->getProgramType().'</li>
+					  <li><a href="#">啟用時間：'.$Member->getEnableTime().'</a></li>
+					  <li><a href="#">到期時間：'.computingDays($Member).'</a></li>
+					</ul>
+			   </div><!--/.well -->
+			</div><!--/span-->
+				
+			<div class="span6">
+			  <div class="row-fluid">
+				<div class="span10">
+				<h1>首頁</h1>
+				<br><br>
+			';
+			
+			
+		uploadBtnView();
+			
+			
+		echo '
+			<h5>最近</h5>
+			<hr>
+			  
+			  <table border="2" class="table">
 				<tr>
-				<td>檔名</td><td width="20%">檔案大小</td><td>上傳日期</td><td>載點</td>
-				';
-			
-			for($i=0 ; $i < count($fileList) ; $i++){
+				<td>檔名</td><td>檔案大小</td><td>上傳日期</td><td>載點</td><td>移除</td></tr>';
 				
-				$chooseFiles = $fileList[$i];
+				$fileList = showFileList($Member);
+				$filesizeList = getFileSizeList($Member);
 				
-				$downloadFile = $memberAccountFilePath.$chooseFiles;
-				
-				$uploadTime = date("F d Y H:i:s.",filemtime($downloadFile));
-								
-				echo '<tr><td>'.splitFileName($chooseFiles).'</td><td>'.getFilesizes($filesizeList[$i]).'</td>
-				<td ">'.monthChangeChiese($uploadTime).'</td>
-				<td><a href="download.php?file='.${downloadFile}.'">下載</a></td>
-				<td><a href="deleteFile.php?account='.${memberAccount}.'&file='.${chooseFiles}.'">刪除</a></td></tr>';
+				for($i=0 ; $i < count($fileList) ; $i++){
+					
+					$chooseFiles = $fileList[$i];
+					
+					$downloadFile = $memberAccountFilePath.$chooseFiles;
+						
+					$uploadTime = date("F d Y H:i:s.",filemtime($downloadFile));
+															
+					echo '<tr><td>'.splitFileName($chooseFiles).'</td><td>'.getFilesizes($filesizeList[$i]).'</td>
+					<td ">'.monthChangeChiese($uploadTime).'</td>
+					<td><a href="download.php?file='.${downloadFile}.'">下載</a></td>
+					<td><a href="deleteFile.php?account='.${memberAccount}.'&file='.${chooseFiles}.'">刪除</a></td>
+					</tr>';
 			}
-		echo '</tr><tr>
-			<td>剩餘空間：'.computingSpaceSize($filesizeList).' GB'.'</td>
-			</tr>
-			</table>';
-	//}
-			
-}	
+				
+			echo'
+			</table>
+              <p>剩餘空間：'.computingSpaceSize($filesizeList).' GB'.'</p>
+            </div>
+		  </div>
 
+		  <hr>
+		  <footer>
+			<p>&copy; KSU-DataBase 2018</p>
+		  </footer>
+		</div>
+	';
+	
+	
 function splitFileName($fileName){
 	
 	if(strlen($fileName) > 20){
@@ -306,6 +319,7 @@ function uploadBtnView(){
 		";
 	
 }
+
 
 function monthChangeChiese($month){
 		
@@ -514,6 +528,7 @@ function getUserProgram($account){
 	return $available_days;//返回使用者購買的天數
 }
 
-?>
-</body>
+	
+	?>
+  </body>
 </html>

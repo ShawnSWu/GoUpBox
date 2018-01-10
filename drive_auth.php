@@ -38,11 +38,11 @@ if($_SESSION['login'] == 0){
         $_SESSION['account']='';
 		$_SESSION['password']='';
 		
-		header('location:logInView.php');
+		header('location:BootslogInView.php');
 		die();
 	}else if($op==6){
 		echo '載入中...';
-		echo '<meta http-equiv="refresh" content="1;url=mainView.php">';
+		echo '<meta http-equiv="refresh" content="1;url=BootsMainView.php">';
 	}
 	
 	
@@ -56,7 +56,7 @@ function checkIfHack(){
 		if($stophack != 99){
 			$_SESSION['BackEndlogin']=0;
 			echo '<script>alert("不要駭我!!");</script>';
-			echo '<meta http-equiv="refresh" content="0;url=logInView.php">';
+			echo '<meta http-equiv="refresh" content="0;url=BootslogInView.php">';
 			die();
 				
 		}
@@ -79,10 +79,10 @@ function login($account,$password){
 		$_SESSION['account']=$account;
 		$_SESSION['password']=$password;
 		
-		echo '<meta http-equiv="refresh" content="1;url=mainView.php">';
+		echo '<meta http-equiv="refresh" content="1;url=BootsMainView.php">';
 	}else{
 		echo '<script>alert("帳號或密碼錯誤!!");</script>';
-		echo '<meta http-equiv="refresh" content="0;url=logInView.php">';
+		echo '<meta http-equiv="refresh" content="0;url=BootslogInView.php">';
 	}
 	
 }
