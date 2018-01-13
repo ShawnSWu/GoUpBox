@@ -7,10 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <!-- Le styles -->
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
-	
 <body class="loginbackground">
     <style type="text/css">
       body {
@@ -18,7 +15,6 @@
         padding-bottom: 40px;
         background-color: #f5f5f5;
       }
-
 	.form-signin {
 		max-width: 300px;
         padding: 19px 29px 29px;
@@ -111,8 +107,6 @@
 	}
     </style>
   </head>
-
-  
 <?php  
 require('psql.php');
 include 'program.php';
@@ -123,18 +117,21 @@ getProgramDateRequest();
 		
 function getSelectProgramList(){
 	
-	$count = $_SESSION['program_count'];
 	
 	$link = db_connect("host=localhost dbname=x071 user=x071 password=Parw%Pe^u");
 	db_set_encoding($link,'utf-8');
 	$Q="select program_type from program;";
 	$result=db_exec($link,$Q);
 
+	$count = db_NumRows($result);
+	
 	for($i=0;$i<$count;$i++){
 		$data=db_fetch_row($result,0);
 		$GLOBALS['program_type'][$i] = new program($data[0],$data[1],$data[2],$data[3]);
-}
-		  echo ' 
+		echo $GLOBALS['program_type'][$i]->getProgramType();
+	}
+	
+	echo ' 
 		<div class="container">
 		  <div class="signupBlock">
 			<form method="post" action="handleSignUp.php">
@@ -160,8 +157,8 @@ function getSelectProgramList(){
 		<!-- /container -->
 		';
 }
+
 function getProgramDateRequest(){
-	//去資料庫撈資料
 	$link = db_connect("host=localhost dbname=x071 user=x071 password=Parw%Pe^u");
 	db_set_encoding($link,'utf-8');
 	$Q="select program_type from program;";
