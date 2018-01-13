@@ -2,7 +2,7 @@
 <html lang="zh_tw">
 <head>
 <meta charset="utf-8">
-<title>註冊驗證</title>
+<title>sign up auth</title>
 </head>
 <body>
 <?php
@@ -22,12 +22,12 @@
 
 		if(authInputDataFormat(
 				$account,$password,$confirm_password,$email,$phone,$selected_program)){
-			singInMember($account,$password,$email,$phone,$selected_program);
+			singUpMember($account,$password,$email,$phone,$selected_program);
 		}else{
-			echo '<meta http-equiv="refresh" content="1;url=SignInView.php">';
+			echo '<meta http-equiv="refresh" content="1;url=BootsSignUpView.php">';
 		}
 	}else{
-		echo '<meta http-equiv="refresh" content="1;url=SignInView.php">';
+		echo '<meta http-equiv="refresh" content="1;url=BootsSignUpView.php">';
 	}
 	
 	
@@ -37,7 +37,7 @@ function checkHack($account){
 	
 	if($account == null){
 		$_SESSION['login'] = 0;
-		echo '<meta http-equiv="refresh" content="0;url=logInView.php">';
+		echo '<meta http-equiv="refresh" content="0;url=BootslogInView.php">';
 		die();
 	}
 }
@@ -59,7 +59,7 @@ function auth_IfRepeatAccount($account){
 	}
 }
 
-function singInMember($account,$password,$email,$phone,$selected_program){
+function singUpMember($account,$password,$email,$phone,$selected_program){
 	
 	$systemTime = date("Y-m-d H:i:s");
 	$link = db_connect("host=localhost dbname=x071 user=x071 password=Parw%Pe^u");
@@ -76,7 +76,7 @@ function singInMember($account,$password,$email,$phone,$selected_program){
 	db_close($link);
 				
 	echo '<script>alert("註冊成功!!!")</script>';
-	echo '<meta http-equiv="refresh" content="2;url=logInView.php">';
+	echo '<meta http-equiv="refresh" content="2;url=BootslogInView.php">';
 }
 
 	

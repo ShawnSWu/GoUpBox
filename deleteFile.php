@@ -6,10 +6,11 @@
 <body bgcolor="#DDDDDD">
 <?php
 session_start();
-checkHack();
+
 
 //取得帳號
 $account = $_GET["account"];
+checkHack($account);
 $files = $_GET["file"];
 $memberAccountFilePath = "/home/s/x071/WWW/UserFile/${account}/";
 
@@ -19,14 +20,12 @@ $deleteFile = $memberAccountFilePath.$files;
 	unlink($deleteFile);
 
 	echo "<script>alert('刪除成功');";
-	echo "location.href = 'mainView.php';";
+	echo "location.href = 'BootsMainView.php';";
 	echo '</script>';
 }
 
-function checkHack(){
-	
+function checkHack($account){
 
-	$account = (int)str_replace("'","''",$_REQUEST['account']);
 	
 	if($account == null){
 		$_SESSION['login'] = 0;
