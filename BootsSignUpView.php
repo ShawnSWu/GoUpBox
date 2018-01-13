@@ -122,8 +122,7 @@ getSelectProgramList();
 getProgramDateRequest();
 		
 function getSelectProgramList(){
-	
-	
+		
 	$link = db_connect("host=localhost dbname=x071 user=x071 password=Parw%Pe^u");
 	db_set_encoding($link,'utf-8');
 	$Q="select program_type from program;";
